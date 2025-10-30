@@ -1,8 +1,9 @@
-module github.com/half0wl/railtail
+module github.com/jimyostcc/railtail
 
 go 1.25.3
 
 require (
+	github.com/northbright/iocopy v1.16.2
 	golang.org/x/sync v0.17.0
 	tailscale.com v1.90.4
 )
@@ -34,7 +35,6 @@ require (
 	github.com/mdlayher/socket v0.5.1 // indirect
 	github.com/miekg/dns v1.1.68 // indirect
 	github.com/mitchellh/go-ps v1.0.0 // indirect
-	github.com/northbright/iocopy v1.16.2 // indirect
 	github.com/pierrec/lz4/v4 v4.1.22 // indirect
 	github.com/prometheus-community/pro-bing v0.7.0 // indirect
 	github.com/safchain/ethtool v0.6.2 // indirect

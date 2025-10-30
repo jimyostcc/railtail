@@ -2,6 +2,7 @@ package main
 
 import (
 	"cmp"
+	"context"
 	"crypto/tls"
 	"fmt"
 	"log/slog"
@@ -11,9 +12,10 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/half0wl/railtail/internal/config"
-	"github.com/half0wl/railtail/internal/logger"
+	"github.com/jimyostcc/railtail/internal/config"
+	"github.com/jimyostcc/railtail/internal/logger"
 
+	"tailscale.com/ipn"
 	"tailscale.com/tsnet"
 )
 
@@ -48,6 +50,29 @@ func main() {
 	}
 
 	defer ts.Close()
+
+	// Configure route acceptance if requested
+	if cfg.TSAcceptRoutes == "true" {
+		lc, err := ts.LocalClient()
+		if err != nil {
+			logger.StderrWithSource.Error("failed to get local client", logger.ErrAttr(err))
+			os.Exit(1)
+		}
+
+		ctx := context.Background()
+
+		mp := &ipn.MaskedPrefs{
+			RouteAllSet: true,
+		}
+		mp.RouteAll = true
+
+		if _, err := lc.EditPrefs(ctx, mp); err != nil {
+			logger.StderrWithSource.Error("failed to configure route acceptance", logger.ErrAttr(err))
+			os.Exit(1)
+		}
+
+		logger.Stdout.Info("configured to accept subnet routes from other nodes")
+	}
 
 	listenAddr := "[::]:" + cfg.ListenPort
 

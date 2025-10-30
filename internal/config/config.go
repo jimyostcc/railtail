@@ -9,7 +9,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/half0wl/railtail/internal/config/parser"
+	"github.com/jimyostcc/railtail/internal/config/parser"
 )
 
 type ForwardTrafficType string
@@ -32,6 +32,7 @@ type Config struct {
 	TSStateDirPath string `flag:"ts-state-dir" env:"TS_STATEDIR_PATH" default:"/tmp/railtail" usage:"tailscale state dir"`
 	TSAuthKey      string `env:"TS_AUTHKEY,TS_AUTH_KEY" usage:"tailscale auth key"`
 	TSDebug        string `flag:"ts-debug" env:"TS_DEBUG" default:"false" usage:"enable tailscale debug logging (true or false)"`
+	TSAcceptRoutes string `flag:"ts-accept-routes" env:"TS_ACCEPT_ROUTES" default:"false" usage:"accept subnet routes advertised by other nodes (true or false)"`
 
 	ForwardTrafficType ForwardTrafficType
 }

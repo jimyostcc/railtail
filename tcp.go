@@ -6,7 +6,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/half0wl/railtail/internal/util"
+	"github.com/jimyostcc/railtail/internal/util"
 	"github.com/northbright/iocopy"
 	"golang.org/x/sync/errgroup"
 	"tailscale.com/tsnet"
